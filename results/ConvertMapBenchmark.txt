@@ -1,0 +1,87 @@
+# JMH 1.14.1 (released 5 days ago)
+# VM version: JDK 1.8.0_92, VM 25.92-b14
+# VM invoker: E:\jdk1.8.0_92\jre\bin\java.exe
+# VM options: -Didea.launcher.port=7532 -Didea.launcher.bin.path=C:\Program Files (x86)\JetBrains\IntelliJ IDEA 15.0\bin -Dfile.encoding=UTF-8
+# Warmup: 10 iterations, 1 s each
+# Measurement: 10 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: org.istanbuljug.json.ConvertMapBenchmark.jackson_to_from_json
+
+# Run progress: 0,00% complete, ETA 00:00:40
+# Fork: 1 of 1
+# Warmup Iteration   1: 72,039 ops/ms
+# Warmup Iteration   2: 238,087 ops/ms
+# Warmup Iteration   3: 699,063 ops/ms
+# Warmup Iteration   4: 1192,550 ops/ms
+# Warmup Iteration   5: 1435,392 ops/ms
+# Warmup Iteration   6: 1418,935 ops/ms
+# Warmup Iteration   7: 1431,741 ops/ms
+# Warmup Iteration   8: 1421,114 ops/ms
+# Warmup Iteration   9: 1425,762 ops/ms
+# Warmup Iteration  10: 1425,305 ops/ms
+Iteration   1: 1432,965 ops/ms
+Iteration   2: 1421,093 ops/ms
+Iteration   3: 1411,290 ops/ms
+Iteration   4: 1413,320 ops/ms
+Iteration   5: 1412,817 ops/ms
+Iteration   6: 1402,867 ops/ms
+Iteration   7: 1374,247 ops/ms
+Iteration   8: 1402,149 ops/ms
+Iteration   9: 1385,323 ops/ms
+Iteration  10: 1372,586 ops/ms
+
+
+Result "jackson_to_from_json":
+  1402,866 ±(99.9%) 30,076 ops/ms [Average]
+  (min, avg, max) = (1372,586, 1402,866, 1432,965), stdev = 19,893
+  CI (99.9%): [1372,790, 1432,942] (assumes normal distribution)
+
+
+# JMH 1.14.1 (released 5 days ago)
+# VM version: JDK 1.8.0_92, VM 25.92-b14
+# VM invoker: E:\jdk1.8.0_92\jre\bin\java.exe
+# VM options: -Didea.launcher.port=7532 -Didea.launcher.bin.path=C:\Program Files (x86)\JetBrains\IntelliJ IDEA 15.0\bin -Dfile.encoding=UTF-8
+# Warmup: 10 iterations, 1 s each
+# Measurement: 10 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: org.istanbuljug.json.ConvertMapBenchmark.jsonb_to_from_json
+
+# Run progress: 50,00% complete, ETA 00:00:20
+# Fork: 1 of 1
+# Warmup Iteration   1: 23,151 ops/ms
+# Warmup Iteration   2: 90,299 ops/ms
+# Warmup Iteration   3: 114,026 ops/ms
+# Warmup Iteration   4: 148,167 ops/ms
+# Warmup Iteration   5: 153,801 ops/ms
+# Warmup Iteration   6: 132,890 ops/ms
+# Warmup Iteration   7: 150,197 ops/ms
+# Warmup Iteration   8: 143,708 ops/ms
+# Warmup Iteration   9: 156,825 ops/ms
+# Warmup Iteration  10: 148,876 ops/ms
+Iteration   1: 144,606 ops/ms
+Iteration   2: 147,175 ops/ms
+Iteration   3: 107,045 ops/ms
+Iteration   4: 133,434 ops/ms
+Iteration   5: 152,577 ops/ms
+Iteration   6: 152,035 ops/ms
+Iteration   7: 141,829 ops/ms
+Iteration   8: 141,137 ops/ms
+Iteration   9: 131,240 ops/ms
+Iteration  10: 148,308 ops/ms
+
+
+Result "jsonb_to_from_json":
+  139,939 ±(99.9%) 20,503 ops/ms [Average]
+  (min, avg, max) = (107,045, 139,939, 152,577), stdev = 13,562
+  CI (99.9%): [119,436, 160,442] (assumes normal distribution)
+
+
+# Run complete. Total time: 00:00:41
+
+Benchmark                                  Mode  Cnt     Score    Error   Units
+ConvertMapBenchmark.jackson_to_from_json  thrpt   10  1402,866 ± 30,076  ops/ms
+ConvertMapBenchmark.jsonb_to_from_json    thrpt   10   139,939 ± 20,503  ops/ms

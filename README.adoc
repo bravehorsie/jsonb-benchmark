@@ -1,0 +1,59 @@
+== JSON-B Benchmark Project
+
+This project benchmarks JSON-B RI and Jackson operations. Scores are in throughput (ops/ms)
+
+.Running Benchmarks
+----
+mvn clean install
+mvn exec:java -Dexec.mainClass="org.istanbuljug.json.RunBenchmarks"
+----
+
+=== Benchmark #1
+
+.Java Object to JSON
+[source,java]
+----
+Jug jug = new Jug("İstanbul JUG", 2010);
+
+//JSON-B
+Jsonb jsonb = JsonbBuilder.create();
+String json = jsonb.toJson(jug);
+
+// Jackson
+ObjectMapper objectMapper = new ObjectMapper();
+String json = objectMapper.writeValueAsString(jug);
+----
+
+.Result #1
+[source,text]
+----
+Benchmark                            Mode  Cnt     Score     Error   Units
+
+SerializeBenchmark.jackson_to_json  thrpt   10  2883,464 ± 427,658  ops/ms
+SerializeBenchmark.jsonb_to_json    thrpt   10   372,921 ±  57,550  ops/ms
+----
+
+=== Benchmark #2
+
+.JSON to Java Object
+[source,java]
+----
+String jug = "{\"name\":\"İstanbul JUG\",\"year\":2010}";
+
+//JSON-B
+Jsonb jsonb = JsonbBuilder.create();
+Jug jug = jsonb.fromJson(jug, Jug.class);
+
+// Jackson
+ObjectMapper objectMapper = new ObjectMapper();
+Jug jug = objectMapper.readValue(jug, Jug.class);
+----
+
+.Result #2
+[source,text]
+----
+Benchmark                              Mode  Cnt     Score     Error   Units
+
+DeserializeBenchmark.json_to_jackson  thrpt   10  2259,487 ± 852,504  ops/ms
+DeserializeBenchmark.json_to_jsonb    thrpt   10   374,747 ±  41,455  ops/ms
+----
