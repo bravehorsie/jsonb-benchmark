@@ -10,6 +10,10 @@
 
     <name>JSON-B Benchmark Project</name>
 
+    <prerequisites>
+        <maven>3.0</maven>
+    </prerequisites>
+
     <dependencies>
         <dependency>
             <groupId>org.openjdk.jmh</groupId>
@@ -64,6 +68,34 @@
                 </configuration>
             </plugin>
             <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>build-classpath</id>
+                        <goals>
+                            <goal>build-classpath</goal>
+                        </goals>
+                        <configuration>
+                            <includeScope>runtime</includeScope>
+                            <outputProperty>depClasspath</outputProperty>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>org.istanbuljug.json.RunBenchmarks</mainClass>
+                    <systemProperties>
+                        <systemProperty>
+                            <key>java.class.path</key>
+                            <value>${project.build.outputDirectory}${path.separator}${depClasspath}</value>
+                        </systemProperty>
+                    </systemProperties>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>2.2</version>
@@ -98,6 +130,13 @@
                         </configuration>
                     </execution>
                 </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.google.guava</groupId>
+                        <artifactId>guava-collections</artifactId>
+                        <version>r03</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
         <pluginManagement>

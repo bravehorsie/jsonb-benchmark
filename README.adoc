@@ -4,8 +4,7 @@ This project benchmarks JSON-B RI and Jackson operations. Scores are in throughp
 
 .Running Benchmarks
 ----
-mvn clean install
-mvn exec:java -Dexec.mainClass="org.istanbuljug.json.RunBenchmarks"
+mvn clean install exec:java -Dexec.mainClass="org.istanbuljug.json.RunBenchmarks"
 ----
 
 === Benchmark #1
