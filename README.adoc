@@ -56,3 +56,21 @@ Benchmark                              Mode  Cnt     Score     Error   Units
 DeserializeBenchmark.json_to_jackson  thrpt   10  2259,487 ± 852,504  ops/ms
 DeserializeBenchmark.json_to_jsonb    thrpt   10   374,747 ±  41,455  ops/ms
 ----
+
+=== Hot Methods
+
+JSON-B RI Stack Profiler Result
+
+----
+85,4%  85,4% java.lang.Class.getEnclosingMethod0
+7,4%   7,4% java.lang.Class.getDeclaringClass0
+1,1%   1,1% org.*.SerializerBuilder.getSupportedTypeSerializer
+1,1%   1,1% java.util.stream.AbstractPipeline.wrapSink
+0,7%   0,7% org.glassfish.json.JsonGeneratorImpl.writeString
+0,6%   0,6% org.*.Marshaller.serializeRoot
+0,4%   0,4% org.*.LexicographicalOrderStrategy.lambda$sortProperties$40
+0,3%   0,3% org.*.SerializeBenchmarkStackProfiler.jsonb_to_json
+0,3%   0,3% org.glassfish.json.JsonGeneratorImpl.close
+0,3%   0,3% java.util.concurrent.ConcurrentLinkedQueue.poll
+2,4%   2,4% <other>
+----

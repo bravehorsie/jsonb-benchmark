@@ -1,0 +1,167 @@
+# JMH 1.5 (released 621 days ago, please consider updating!)
+# VM invoker: E:\jdk1.8.0_101\jre\bin\java.exe
+# VM options: -Xmx1024M -Dclassworlds.conf=E:\apache-maven-3.0.5\bin\m2.conf -Dmaven.home=E:\apache-maven-3.0.5 -Dmaven.multiModuleProjectDirectory=C:\Users\usta\Dropbox\jsonb-benchmark -Djmh.stack.detailLine=false
+# Warmup: 10 iterations, 1 s each
+# Measurement: 10 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: org.istanbuljug.json.SerializeWithStackProfiler.jackson_to_json
+
+# Run progress: 0,00% complete, ETA 00:00:40
+# Fork: 1 of 1
+# Warmup Iteration   1: 2077,682 ops/ms
+# Warmup Iteration   2: 3078,921 ops/ms
+# Warmup Iteration   3: 3147,568 ops/ms
+# Warmup Iteration   4: 3166,197 ops/ms
+# Warmup Iteration   5: 3186,126 ops/ms
+# Warmup Iteration   6: 3191,418 ops/ms
+# Warmup Iteration   7: 3038,235 ops/ms
+# Warmup Iteration   8: 3179,304 ops/ms
+# Warmup Iteration   9: 3207,563 ops/ms
+# Warmup Iteration  10: 3206,388 ops/ms
+Iteration   1: 3165,314 ops/ms
+                 @stack: <delayed till summary>
+
+Iteration   2: 3141,121 ops/ms
+                 @stack: <delayed till summary>
+
+Iteration   3: 3196,045 ops/ms
+                 @stack: <delayed till summary>
+
+Iteration   4: 3137,661 ops/ms
+                 @stack: <delayed till summary>
+
+Iteration   5: 3188,294 ops/ms
+                 @stack: <delayed till summary>
+
+Iteration   6: 3203,779 ops/ms
+                 @stack: <delayed till summary>
+
+Iteration   7: 3196,226 ops/ms
+                 @stack: <delayed till summary>
+
+Iteration   8: 3181,474 ops/ms
+                 @stack: <delayed till summary>
+
+Iteration   9: 3185,085 ops/ms
+                 @stack: <delayed till summary>
+
+Iteration  10: 3208,491 ops/ms
+                 @stack: <delayed till summary>
+
+
+
+Result: 3180,349 ±(99.9%) 37,419 ops/ms [Average]
+  Statistics: (min, avg, max) = (3137,661, 3180,349, 3208,491), stdev = 24,750
+  Confidence interval (99.9%): [3142,930, 3217,768]
+
+Stack profiler:
+
+....[Thread state distributions]....................................................................
+100,0%         RUNNABLE
+
+....[Thread state: RUNNABLE]........................................................................
+ 58,9%  58,9% sun.reflect.DelegatingMethodAccessorImpl.invoke
+ 20,0%  20,0% com.fasterxml.jackson.databind.ser.BeanSerializer.serialize
+ 17,9%  17,9% org.istanbuljug.json.SerializeWithStackProfiler.jackson_to_json
+  0,6%   0,6% java.util.Arrays.copyOfRange
+  0,6%   0,6% com.fasterxml.jackson.core.JsonFactory._createGenerator
+  0,4%   0,4% com.fasterxml.jackson.core.json.JsonWriteContext.createChildObjectContext
+  0,4%   0,4% org.istanbuljug.json.generated.SerializeWithStackProfiler_jackson_to_json.jackson_to_json_thrpt_jmhStub
+  0,3%   0,3% com.fasterxml.jackson.databind.ser.BeanPropertyWriter.serializeAsField
+  0,2%   0,2% com.fasterxml.jackson.core.io.SegmentedStringWriter.<init>
+  0,1%   0,1% sun.reflect.GeneratedMethodAccessor2.invoke
+  0,6%   0,6% <other>
+
+
+
+# JMH 1.5 (released 621 days ago, please consider updating!)
+# VM invoker: E:\jdk1.8.0_101\jre\bin\java.exe
+# VM options: -Xmx1024M -Dclassworlds.conf=E:\apache-maven-3.0.5\bin\m2.conf -Dmaven.home=E:\apache-maven-3.0.5 -Dmaven.multiModuleProjectDirectory=C:\Users\usta\Dropbox\jsonb-benchmark -Djmh.stack.detailLine=false
+# Warmup: 10 iterations, 1 s each
+# Measurement: 10 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: org.istanbuljug.json.SerializeWithStackProfiler.jsonb_to_json
+
+# Run progress: 50,00% complete, ETA 00:00:20
+# Fork: 1 of 1
+# Warmup Iteration   1: 32,849 ops/ms
+# Warmup Iteration   2: 254,046 ops/ms
+# Warmup Iteration   3: 365,544 ops/ms
+# Warmup Iteration   4: 383,581 ops/ms
+# Warmup Iteration   5: 384,964 ops/ms
+# Warmup Iteration   6: 385,477 ops/ms
+# Warmup Iteration   7: 383,625 ops/ms
+# Warmup Iteration   8: 378,869 ops/ms
+# Warmup Iteration   9: 383,714 ops/ms
+# Warmup Iteration  10: 383,933 ops/ms
+Iteration   1: 376,357 ops/ms
+                 @stack: <delayed till summary>
+
+Iteration   2: 377,255 ops/ms
+                 @stack: <delayed till summary>
+
+Iteration   3: 377,738 ops/ms
+                 @stack: <delayed till summary>
+
+Iteration   4: 382,678 ops/ms
+                 @stack: <delayed till summary>
+
+Iteration   5: 380,361 ops/ms
+                 @stack: <delayed till summary>
+
+Iteration   6: 381,299 ops/ms
+                 @stack: <delayed till summary>
+
+Iteration   7: 381,337 ops/ms
+                 @stack: <delayed till summary>
+
+Iteration   8: 381,068 ops/ms
+                 @stack: <delayed till summary>
+
+Iteration   9: 379,868 ops/ms
+                 @stack: <delayed till summary>
+
+Iteration  10: 376,109 ops/ms
+                 @stack: <delayed till summary>
+
+
+
+Result: 379,407 ±(99.9%) 3,545 ops/ms [Average]
+  Statistics: (min, avg, max) = (376,109, 379,407, 382,678), stdev = 2,345
+  Confidence interval (99.9%): [375,862, 382,952]
+
+Stack profiler:
+
+....[Thread state distributions]....................................................................
+ 99,8%         RUNNABLE
+  0,2%         WAITING
+
+....[Thread state: RUNNABLE]........................................................................
+ 87,5%  87,6% java.lang.Class.getEnclosingMethod0
+  6,2%   6,2% java.lang.Class.getDeclaringClass0
+  1,2%   1,2% org.eclipse.persistence.json.bind.internal.serializer.SerializerBuilder.getSupportedTypeSerializer
+  0,8%   0,8% org.eclipse.persistence.json.bind.internal.serializer.ObjectSerializer.serializeInternal
+  0,5%   0,5% java.util.stream.AbstractPipeline.wrapSink
+  0,5%   0,5% org.eclipse.persistence.json.bind.internal.serializer.SerializerBuilder.build
+  0,3%   0,3% java.lang.ref.Reference.<init>
+  0,3%   0,3% java.lang.StringBuffer.toString
+  0,3%   0,3% org.istanbuljug.json.SerializeWithStackProfiler.jsonb_to_json
+  0,2%   0,2% java.lang.invoke.LambdaForm$MH/1819260613.invoke_MT
+  2,1%   2,1% <other>
+
+....[Thread state: WAITING].........................................................................
+  0,2% 100,0% sun.misc.Unsafe.park
+
+
+
+# Run complete. Total time: 00:00:41
+
+Benchmark                                           Mode  Cnt     Score    Error   Units
+SerializeWithStackProfiler.jackson_to_json         thrpt   10  3180,349 ± 37,419  ops/ms
+SerializeWithStackProfiler.jackson_to_json:@stack  thrpt    1       NaN ±    NaN     ---
+SerializeWithStackProfiler.jsonb_to_json           thrpt   10   379,407 ±  3,545  ops/ms
+SerializeWithStackProfiler.jsonb_to_json:@stack    thrpt    1       NaN ±    NaN     ---

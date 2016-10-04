@@ -1,16 +1,9 @@
 package org.istanbuljug.json;
 
-import org.openjdk.jmh.results.RunResult;
-import org.openjdk.jmh.runner.Runner;
-import org.openjdk.jmh.runner.RunnerException;
-import org.openjdk.jmh.runner.options.Options;
-import org.openjdk.jmh.runner.options.OptionsBuilder;
-
-import java.io.IOException;
+import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -18,7 +11,7 @@ import java.util.List;
  */
 public class RunBenchmarks {
 
-    public static void main(String[] args) throws RunnerException, IOException {
+    public static void main(String[] args) throws Exception {
 
         Files.createDirectories(Paths.get("./results"));
 
@@ -26,17 +19,12 @@ public class RunBenchmarks {
                 SerializeBenchmark.class,
                 DeserializeBenchmark.class,
                 ConvertCollectionBenchmark.class,
-                ConvertMapBenchmark.class);
+                ConvertMapBenchmark.class,
+                SerializeWithStackProfiler.class);
 
         for (Class<?> benchmark : benchmarkList) {
-
-            String name = benchmark.getSimpleName();
-            Options opt = new OptionsBuilder()
-                    .include(name)
-                    .output("results/" + name + ".txt")
-                    .build();
-
-            Collection<RunResult> result = new Runner(opt).run();
+            Method method = benchmark.getMethod("main", String[].class);
+            method.invoke(null, (Object) args);
         }
 
     }
