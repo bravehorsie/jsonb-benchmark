@@ -191,6 +191,11 @@
             <id>sonatype.snapshots</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
         </repository>
+        <repository>
+            <!-- The JSON-B API is available in this repository -->
+            <id>java.net.snapshot</id>
+            <url>https://maven.java.net/content/repositories/snapshots/</url>
+        </repository>
     </repositories>
 
 </project>
