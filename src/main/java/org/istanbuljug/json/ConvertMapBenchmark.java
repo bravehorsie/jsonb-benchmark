@@ -31,7 +31,6 @@ public class ConvertMapBenchmark {
     private ObjectMapper objectMapper;
     private Map<String, Object> jug;
 
-    private Class<? extends HashMap<String, Object>> mapClass;
     private TypeReference<HashMap<String, Object>> mapType;
 
     @Setup(Level.Trial)
@@ -43,8 +42,6 @@ public class ConvertMapBenchmark {
         jug.put("name", "İstanbul JUG");
         jug.put("age", 2010);
 
-        mapClass = new HashMap<String, Object>() {
-        }.getClass();
         mapType = new TypeReference<HashMap<String, Object>>() {
         };
     }
@@ -55,7 +52,7 @@ public class ConvertMapBenchmark {
     @Measurement(iterations = ITERATION_COUNT)
     public HashMap<String, Object> jsonb_to_from_json() {
         String colorsJsonArray = jsonb.toJson(jug);
-        return jsonb.fromJson(colorsJsonArray, mapClass);
+        return jsonb.fromJson(colorsJsonArray, mapType.getType());
     }
 
     @Benchmark
