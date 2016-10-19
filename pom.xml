@@ -50,7 +50,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jmh.version>1.5</jmh.version>
+        <jmh.version>1.15</jmh.version>
         <javac.target>1.8</javac.target>
         <uberjar.name>benchmarks</uberjar.name>
     </properties>
@@ -110,7 +110,7 @@
                             <transformers>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>org.istanbuljug.json.RunBenchmarks</mainClass>
+                                    <mainClass>org.istanbuljug.json.SerializeWithStackProfiler</mainClass>
                                 </transformer>
                             </transformers>
                             <filters>
