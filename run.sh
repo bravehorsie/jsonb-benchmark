@@ -3,6 +3,12 @@
 JSONB_PATH=~/java/eclipselink-runtime/jsonb;
 BENCH_PATH=`pwd`;
 
+if [ ! -z "$3" ]; then
+  PROF="-prof $3"
+else
+  PROF=""
+fi
+
 if [ -z "$2" ]; then
   THREAD_COUNT=4
 else
@@ -15,7 +21,8 @@ if [ -d $JSONB_PATH ]; then
 fi
 cd $BENCH_PATH;
 mvn clean install;
-java -jar target/benchmarks.jar $1 -prof stack -f 1 -t $THREAD_COUNT -i 10
+java -jar target/benchmarks.jar $1 $PROF -f 1 -t $THREAD_COUNT -i 10 &
+renice 10 $!;
 #cat results/SerializeWithStackProfiler.txt
 #java -XX:+UnlockCommercialFeatures -XX:+FlightRecorder -jar target/benchmarks.jar &
 #JMH_PID=$!;

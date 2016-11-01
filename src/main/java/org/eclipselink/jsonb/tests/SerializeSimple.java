@@ -33,8 +33,8 @@ package org.eclipselink.jsonb.tests;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.eclipselink.jsonb.json.JmhJsonProvider;
 import org.eclipselink.jsonb.payload.SimpleObject;
+import org.glassfish.json.JsonProviderImpl;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Level;
@@ -49,7 +49,7 @@ import org.openjdk.jmh.infra.Blackhole;
 
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
-import java.io.OutputStream;
+import javax.json.spi.JsonProvider;
 import java.util.concurrent.TimeUnit;
 
 @BenchmarkMode(Mode.Throughput)
@@ -57,7 +57,7 @@ import java.util.concurrent.TimeUnit;
 @State(Scope.Thread)
 @Warmup(iterations = 5)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
-public class SerializeSimple extends AbstractCustomerTest {
+public class SerializeSimple {
 
     private SimpleObject simple;
 
@@ -69,11 +69,12 @@ public class SerializeSimple extends AbstractCustomerTest {
     @Setup(Level.Trial)
     public void setUp() {
         mapper = new ObjectMapper();
-//        jsonb = JsonbBuilder.newBuilder().withProvider(new JmhJsonProvider()).build();
+//        JsonProvider provider = new JsonProviderImpl();
+//        jsonb = JsonbBuilder.newBuilder().withProvider(provider).build();
         jsonb = JsonbBuilder.create();
         simple = new SimpleObject();
-        simple.setStringValue("Really simple");
-        simple.setIntValue(111);
+        simple.setStringValue("value");
+        simple.setIntValue(1);
     }
 
     @Benchmark

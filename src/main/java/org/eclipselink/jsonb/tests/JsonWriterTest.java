@@ -32,7 +32,6 @@
 package org.eclipselink.jsonb.tests;
 
 import com.fasterxml.jackson.core.JsonFactory;
-import org.eclipselink.jsonb.json.JmhJsonProvider;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Level;
@@ -49,9 +48,7 @@ import javax.json.spi.JsonProvider;
 import javax.json.stream.JsonGenerator;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.StringWriter;
-import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 @BenchmarkMode(Mode.Throughput)
@@ -61,16 +58,19 @@ import java.util.concurrent.TimeUnit;
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 public class JsonWriterTest extends AbstractCustomerTest {
 
+    private JsonProvider provider;
+
     private static final String[] strings = {"str1", "str2", "str3", "str4", "str5"};
+
+    @Setup(Level.Trial)
+    public void setup() {
+        provider = JsonProvider.provider();
+    }
 
     @Benchmark
     public void test1JsonbStringWriter(Blackhole bh) {
-        //JsonGenerator does buffering inside anyway.
         StringWriter jsonbWriter = new StringWriter();
-
-        JsonGenerator jsonbGenerator = JsonProvider.provider().createGenerator(jsonbWriter);
-//        JsonGenerator jsonbGenerator = new JmhJsonProvider().createGenerator(jsonbWriter);
-
+        JsonGenerator jsonbGenerator = provider.createGenerator(jsonbWriter);
         writeJsonb(jsonbGenerator);
         final String result = jsonbWriter.toString();
         bh.consume(result);
@@ -88,8 +88,8 @@ public class JsonWriterTest extends AbstractCustomerTest {
     @Benchmark
     public void test3JsonbOuptutStream(Blackhole bh) {
         //JsonGenerator does buffering inside anyway.
-        ByteArrayOutputStream out = new ByteArrayOutputStream(1024);
-        JsonGenerator jsonbGenerator = JsonProvider.provider().createGenerator(out);
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        JsonGenerator jsonbGenerator = provider.createGenerator(out);
 
         writeJsonb(jsonbGenerator);
         bh.consume(out.toString());
@@ -97,7 +97,7 @@ public class JsonWriterTest extends AbstractCustomerTest {
 
     @Benchmark
     public void test4JacksonOutputStream(Blackhole bh) throws IOException {
-        ByteArrayOutputStream out = new ByteArrayOutputStream(1024);
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
         JsonFactory jsonFactory = new JsonFactory();
         com.fasterxml.jackson.core.JsonGenerator jacksonGenerator= jsonFactory.createGenerator(out);
         writeJackson(jacksonGenerator);
