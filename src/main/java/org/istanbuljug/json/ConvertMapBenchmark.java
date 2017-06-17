@@ -2,6 +2,7 @@ package org.istanbuljug.json;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.results.RunResult;
 import org.openjdk.jmh.runner.Runner;
@@ -29,6 +30,7 @@ public class ConvertMapBenchmark {
 
     private Jsonb jsonb;
     private ObjectMapper objectMapper;
+    private Gson gson;
     private Map<String, Object> jug;
 
     private TypeReference<HashMap<String, Object>> mapType;
@@ -37,6 +39,7 @@ public class ConvertMapBenchmark {
     public void init() {
         jsonb = JsonbBuilder.create();
         objectMapper = new ObjectMapper();
+        gson = new Gson();
         jug = new HashMap();
         ;
         jug.put("name", "İstanbul JUG");
@@ -62,6 +65,15 @@ public class ConvertMapBenchmark {
     public HashMap<String, Object> jackson_to_from_json() throws IOException {
         String colorsJsonArray = objectMapper.writeValueAsString(jug);
         return objectMapper.readValue(colorsJsonArray, mapType);
+    }
+
+    @Benchmark
+    @Fork(value = FORK_COUNT)
+    @Warmup(iterations = WARMUP_COUNT)
+    @Measurement(iterations = ITERATION_COUNT)
+    public HashMap<String, Object> gson_to_from_json() throws IOException {
+        String colorsJsonArray = gson.toJson(jug);
+        return gson.fromJson(colorsJsonArray, mapType.getType());
     }
 
     public static void main(String[] args) throws RunnerException {

@@ -1,6 +1,7 @@
 package org.istanbuljug.json;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.results.RunResult;
 import org.openjdk.jmh.runner.Runner;
@@ -28,12 +29,14 @@ public class DeserializeBenchmark {
 
     private Jsonb jsonb;
     private ObjectMapper objectMapper;
+    private Gson gson;
     private String jug;
 
     @Setup(Level.Trial)
     public void init() {
         jsonb = JsonbBuilder.create();
         objectMapper = new ObjectMapper();
+        gson = new Gson();
         jug = "{\"name\":\"İstanbul JUG\",\"year\":2010}";
     }
 
@@ -41,7 +44,7 @@ public class DeserializeBenchmark {
     @Fork(value = FORK_COUNT)
     @Warmup(iterations = WARMUP_COUNT)
     @Measurement(iterations = ITERATION_COUNT)
-    public Jug json_to_jsonb() {
+    public Jug jsonb_from_json() {
         return jsonb.fromJson(jug, Jug.class);
     }
 
@@ -49,8 +52,16 @@ public class DeserializeBenchmark {
     @Fork(value = FORK_COUNT)
     @Warmup(iterations = WARMUP_COUNT)
     @Measurement(iterations = ITERATION_COUNT)
-    public Jug json_to_jackson() throws IOException {
+    public Jug jackson_from_json() throws IOException {
         return objectMapper.readValue(jug, Jug.class);
+    }
+
+    @Benchmark
+    @Fork(value = FORK_COUNT)
+    @Warmup(iterations = WARMUP_COUNT)
+    @Measurement(iterations = ITERATION_COUNT)
+    public Jug gson_from_json() throws IOException {
+        return gson.fromJson(jug, Jug.class);
     }
 
     public static void main(String[] args) throws RunnerException {

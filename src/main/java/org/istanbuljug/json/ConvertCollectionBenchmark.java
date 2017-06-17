@@ -2,6 +2,7 @@ package org.istanbuljug.json;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.results.RunResult;
 import org.openjdk.jmh.runner.Runner;
@@ -32,6 +33,7 @@ public class ConvertCollectionBenchmark {
 
     private Jsonb jsonb;
     private ObjectMapper objectMapper;
+    private Gson gson;
 
     private List<String> colors;
 
@@ -42,6 +44,7 @@ public class ConvertCollectionBenchmark {
     public void init() {
         jsonb = JsonbBuilder.create();
         objectMapper = new ObjectMapper();
+        gson = new Gson();
         colors = new ArrayList<>(Arrays.asList("Ali", "Veli", "Selami"));
         listClass = new ArrayList<String>() {
         }.getClass();
@@ -66,6 +69,16 @@ public class ConvertCollectionBenchmark {
         String colorsJsonArray = objectMapper.writeValueAsString(colors);
 
         return objectMapper.readValue(colorsJsonArray, listType);
+    }
+
+    @Benchmark
+    @Fork(value = FORK_COUNT)
+    @Warmup(iterations = WARMUP_COUNT)
+    @Measurement(iterations = ITERATION_COUNT)
+    public List<String> gson_to_from_list() throws IOException {
+        String colorsJsonArray = gson.toJson(colors);
+
+        return gson.fromJson(colorsJsonArray, listClass);
     }
 
     public static void main(String[] args) throws RunnerException {
