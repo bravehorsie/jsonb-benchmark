@@ -2,6 +2,7 @@ package org.istanbuljug.json;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
 import org.openjdk.jmh.profile.StackProfiler;
@@ -29,12 +30,14 @@ public class SerializeWithStackProfiler {
 
     private Jsonb jsonb;
     private ObjectMapper objectMapper;
+    private Gson gson;
     private Jug jug;
 
     @Setup(Level.Trial)
     public void init() {
         jsonb = JsonbBuilder.create();
         objectMapper = new ObjectMapper();
+        gson = new Gson();
         jug = new Jug("İstanbul JUG", 2010);
     }
 
@@ -53,6 +56,15 @@ public class SerializeWithStackProfiler {
     @Measurement(iterations = ITERATION_COUNT)
     public void jackson_to_json(Blackhole blackhole) throws JsonProcessingException {
         String json = objectMapper.writeValueAsString(jug);
+        blackhole.consume(json);
+    }
+
+    @Benchmark
+    @Fork(value = FORK_COUNT)
+    @Warmup(iterations = WARMUP_COUNT)
+    @Measurement(iterations = ITERATION_COUNT)
+    public void gson_to_json(Blackhole blackhole) throws JsonProcessingException {
+        String json = gson.toJson(jug);
         blackhole.consume(json);
     }
 
